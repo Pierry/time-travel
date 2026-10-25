@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2A0B45"/>
+      <stop offset="1" stop-color="#0B0620"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD23F"/>
+      <stop offset="0.55" stop-color="#FF7A1F"/>
+      <stop offset="1" stop-color="#FF2E88"/>
+    </linearGradient>
+    <linearGradient id="stone" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#A9A5C2"/>
+      <stop offset="1" stop-color="#5A5577"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="sky"><rect width="512" height="372"/></clipPath>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <g clip-path="url(#sky)">
+    <circle cx="256" cy="300" r="168" fill="url(#sun)"/>
+    <g fill="#1E0836">
+      <rect x="80" y="300" width="352" height="7"/>
+      <rect x="80" y="326" width="352" height="10"/>
+      <rect x="80" y="352" width="352" height="13"/>
+    </g>
+  </g>
+  <g stroke="#FF2E88" stroke-width="3" opacity="0.8">
+    <line x1="40" y1="372" x2="472" y2="372"/>
+    <line x1="56" y1="400" x2="456" y2="400"/>
+    <line x1="80" y1="438" x2="432" y2="438"/>
+  </g>
+  <!-- tombstone with a clock -->
+  <path d="M146 410 V214 C146 150 196 118 256 118 C316 118 366 150 366 214 V410 Z" fill="url(#stone)" stroke="#1B1730" stroke-width="10"/>
+  <circle cx="256" cy="236" r="70" fill="#F4F2FF" stroke="#1B1730" stroke-width="10"/>
+  <g stroke="#1B1730" stroke-width="6" stroke-linecap="round">
+    <line x1="256" y1="176" x2="256" y2="188"/><line x1="316" y1="236" x2="304" y2="236"/>
+    <line x1="256" y1="296" x2="256" y2="284"/><line x1="196" y1="236" x2="208" y2="236"/>
+  </g>
+  <!-- hands running backwards, from six months ahead -->
+  <path d="M256 236 L256 196" stroke="#1B1730" stroke-width="10" stroke-linecap="round"/>
+  <path d="M256 236 L222 256" stroke="#FF2E88" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="256" cy="236" r="9" fill="#1B1730"/>
+  <path d="M300 168 A80 80 0 0 0 196 172" fill="none" stroke="#5EF3FF" stroke-width="8" stroke-linecap="round" filter="url(#glow)"/>
+  <path d="M196 172 l2 -22 m-2 22 l20 -8" stroke="#5EF3FF" stroke-width="8" stroke-linecap="round" fill="none" filter="url(#glow)"/>
+  <text x="256" y="368" text-anchor="middle" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="50" font-weight="800" fill="#1B1730" letter-spacing="4">R.I.P.</text>
+</svg>

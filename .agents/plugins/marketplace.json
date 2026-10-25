@@ -1,0 +1,20 @@
+{
+  "name": "time-travel",
+  "interface": {
+    "displayName": "Time Travel"
+  },
+  "plugins": [
+    {
+      "name": "time-travel",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

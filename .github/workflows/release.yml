@@ -1,0 +1,77 @@
+name: release
+
+# Every merge to main that carries a new version in .claude-plugin/plugin.json
+# gets a tag, a GitHub release with the CHANGELOG entry as notes, and a moving
+# major tag. The ci workflow refuses a plugin change without a new version, so
+# in practice every merge that changes the plugin is released. The tag is what
+# `claude plugin marketplace update` and `codex plugin marketplace upgrade`
+# resolve to.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: tag and release the version in plugin.json
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: read the declared version
+        id: version
+        run: echo "value=$(jq -r .version .claude-plugin/plugin.json)" >> "$GITHUB_OUTPUT"
+
+      - name: is this version already tagged
+        id: tag
+        run: |
+          v="v${{ steps.version.outputs.value }}"
+          if git rev-parse -q --verify "refs/tags/$v" > /dev/null; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "$v is already released, nothing to do"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # A release is the version other people install. It runs the gate again
+      # rather than trusting that ci covered this exact commit.
+      - name: gate before releasing
+        if: steps.tag.outputs.exists == 'false'
+        run: |
+          python3 sensors/repo_lint.py
+          python3 sensors/test_sensors.py
+          python3 scripts/test_alarms_ics.py
+          python3 sensors/trip_lint.py --artifact examples/invoice-nudge/trip.md --phase all
+
+      - name: release notes from the changelog
+        if: steps.tag.outputs.exists == 'false'
+        run: |
+          v="${{ steps.version.outputs.value }}"
+          awk -v v="$v" '$0 ~ "^## \\["v"\\]" {on=1; next} on && /^## \[/ {exit} on {print}' CHANGELOG.md > "$RUNNER_TEMP/notes.md"
+          test -s "$RUNNER_TEMP/notes.md" || { echo "CHANGELOG.md has no notes for $v"; exit 1; }
+
+      - name: tag and release
+        if: steps.tag.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          v="v${{ steps.version.outputs.value }}"
+          gh release create "$v" --title "$v" --target "$GITHUB_SHA" --notes-file "$RUNNER_TEMP/notes.md" --latest
+          # The moving major tag follows the latest release of that major.
+          major="${v%%.*}"
+          gh api "repos/${{ github.repository }}/git/refs/tags/$major" -X PATCH -f sha="$GITHUB_SHA" -F force=true \
+            || gh api "repos/${{ github.repository }}/git/refs" -f ref="refs/tags/$major" -f sha="$GITHUB_SHA"

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "time-travel",
+  "version": "0.1.0",
+  "description": "Marketplace of one: this repository is the time-travel plugin, so it installs without a local clone.",
+  "owner": {
+    "name": "Pierry Borges"
+  },
+  "plugins": [
+    {
+      "name": "time-travel",
+      "description": "Writes the autopsy of your plan six months before it dies, then rebuilds it and sets the alarms.",
+      "category": "productivity",
+      "source": "./"
+    }
+  ]
+}

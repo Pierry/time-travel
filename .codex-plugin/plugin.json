@@ -1,0 +1,30 @@
+{
+  "name": "time-travel",
+  "version": "0.1.0",
+  "description": "Premortem agent. Writes the autopsy of your plan six months before it dies: seven traced causes, the verdict, the rebuild, the rival's attack and one measurable alarm per cause.",
+  "author": {
+    "name": "Pierry Borges"
+  },
+  "homepage": "https://github.com/Pierry/time-travel",
+  "repository": "https://github.com/Pierry/time-travel",
+  "license": "MIT",
+  "keywords": ["premortem", "planning", "risk", "decision-making", "strategy"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Time Travel",
+    "shortDescription": "Premortem: the autopsy of your plan, six months early",
+    "longDescription": "Travels six months ahead to the day your plan failed. Seven causes of death traced to your own plan, the verdict, the plan rebuilt with a quit-if checklist, the rival's attack, and one measurable alarm per cause with the week to check it.",
+    "developerName": "Pierry Borges",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Read", "Write"],
+    "websiteURL": "https://github.com/Pierry/time-travel",
+    "defaultPrompt": [
+      "Run a premortem on this plan",
+      "What kills this plan six months from now?",
+      "Set measurable alarms for the ways my launch can fail"
+    ],
+    "brandColor": "#FF5A1F",
+    "composerIcon": "./docs/logo.svg",
+    "logo": "./docs/logo.svg"
+  }
+}
