@@ -4,6 +4,10 @@ Format [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versions [SemVe
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-25
+
+- Python 3.10 is the supported minimum. GitHub's Ubuntu 26.04 runners no longer ship 3.9, so 3.9 could not be tested; CI now runs on 3.10 and 3.14 without fail fast.
+
 ## [0.1.0] - 2026-10-25
 
 First trip.

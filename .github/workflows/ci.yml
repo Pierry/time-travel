@@ -13,8 +13,9 @@ jobs:
     name: lint, tests and gate
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        python: ["3.9", "3.13"]
+        python: ["3.10", "3.14"]
     steps:
       - uses: actions/checkout@v4
 

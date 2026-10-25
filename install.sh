@@ -24,7 +24,7 @@ say() { printf '%s\n' "$*"; }
 die() { printf 'install: %s\n' "$*" >&2; exit 1; }
 
 command -v python3 >/dev/null 2>&1 \
-  || die "python3 is not on PATH; the gate and the calendar export need Python 3.9+"
+  || die "python3 is not on PATH; the gate and the calendar export need Python 3.10+"
 command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1 \
   || die "gh is not logged in. The repository is private: run 'gh auth login' and 'gh auth setup-git' first."
 

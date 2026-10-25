@@ -4,11 +4,11 @@
 
 <p align="center">
   <a href="https://github.com/Pierry/time-travel/actions/workflows/ci.yml"><img src="https://github.com/Pierry/time-travel/actions/workflows/ci.yml/badge.svg" alt="ci"></a>
-  <a href="https://github.com/Pierry/time-travel/releases"><img src="https://img.shields.io/badge/release-v0.1.0-FF5A1F" alt="release"></a>
+  <a href="https://github.com/Pierry/time-travel/releases"><img src="https://img.shields.io/badge/release-v0.1.1-FF5A1F" alt="release"></a>
   <img src="https://img.shields.io/badge/Claude%20Code-plugin-D97757" alt="Claude Code plugin">
   <img src="https://img.shields.io/badge/Codex-plugin-000000" alt="Codex plugin">
   <img src="https://img.shields.io/badge/tests-79-1F883D" alt="tests">
-  <img src="https://img.shields.io/badge/python-3.9%2B-3776AB" alt="python 3.9+">
+  <img src="https://img.shields.io/badge/python-3.10%2B-3776AB" alt="python 3.10+">
   <img src="https://img.shields.io/badge/dependencies-0-5EF3FF" alt="zero dependencies">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-8A5CF6" alt="MIT license"></a>
 </p>
@@ -23,7 +23,7 @@ A premortem (Gary Klein, *Harvard Business Review*, 2007) flips the question fro
 
 # Install
 
-You need Python 3.9+, `gh` logged in (the repository is private), and Claude Code, Codex or both.
+You need Python 3.10+, `gh` logged in (the repository is private), and Claude Code, Codex or both.
 
 ```bash
 gh auth login && gh auth setup-git
@@ -196,7 +196,7 @@ No dependencies beyond the standard library.
 Every merge to `main` that changes the plugin ships a release:
 
 1. Bump `version` in `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json` and `.codex-plugin/plugin.json`, and add a `## [x.y.z]` entry to `CHANGELOG.md`.
-2. Open a PR. CI runs the lint, the tests and the gate on Python 3.9 and 3.13, and refuses a PR that changes plugin files without a higher version.
+2. Open a PR. CI runs the lint, the tests and the gate on Python 3.10 and 3.14, and refuses a PR that changes plugin files without a higher version.
 3. Merge. The release workflow runs the gate again, creates the tag `vx.y.z`, publishes a GitHub release with the changelog entry as notes, and moves the major tag (`v0`, `v1`).
 
 Changes to docs, the README or CI alone release nothing.
