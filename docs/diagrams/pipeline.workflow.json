@@ -1,0 +1,272 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "time-travel: from plan to alarms",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {
+      "id": "you",
+      "label": "You"
+    },
+    {
+      "id": "legs",
+      "label": "Agent legs, one skill each"
+    },
+    {
+      "id": "gate",
+      "label": "Deterministic gate",
+      "variant": "exception"
+    },
+    {
+      "id": "files",
+      "label": "Files written"
+    }
+  ],
+  "phases": [
+    {
+      "id": "intake",
+      "label": "Intake",
+      "fromCol": 0,
+      "toCol": 0
+    },
+    {
+      "id": "diagnose",
+      "label": "Diagnose",
+      "fromCol": 1,
+      "toCol": 2,
+      "variant": "emphasis"
+    },
+    {
+      "id": "repair",
+      "label": "Repair and watch",
+      "fromCol": 3,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "mainPath": [
+    "plan",
+    "cut",
+    "autopsy",
+    "verdict",
+    "rebuild",
+    "adversary",
+    "alarm",
+    "reply"
+  ],
+  "nodes": [
+    {
+      "id": "plan",
+      "lane": "you",
+      "col": 0,
+      "type": "external",
+      "label": "Your plan",
+      "sublabel": "text or a file",
+      "width": 140
+    },
+    {
+      "id": "reply",
+      "lane": "you",
+      "col": 5,
+      "type": "frontend",
+      "label": "Reply",
+      "sublabel": "verdict, checklist, alarms",
+      "width": 150
+    },
+    {
+      "id": "cut",
+      "lane": "legs",
+      "col": 0,
+      "type": "backend",
+      "label": "0 Plan",
+      "sublabel": "details D1..Dn",
+      "width": 140
+    },
+    {
+      "id": "autopsy",
+      "lane": "legs",
+      "col": 1,
+      "type": "backend",
+      "label": "1 Autopsy",
+      "sublabel": "7 causes, month by month",
+      "width": 150
+    },
+    {
+      "id": "verdict",
+      "lane": "legs",
+      "col": 2,
+      "type": "backend",
+      "label": "2 Verdict",
+      "sublabel": "likely vs dangerous",
+      "width": 140
+    },
+    {
+      "id": "rebuild",
+      "lane": "legs",
+      "col": 3,
+      "type": "backend",
+      "label": "3 Rebuild",
+      "sublabel": "every cause closed",
+      "width": 140
+    },
+    {
+      "id": "adversary",
+      "lane": "legs",
+      "col": 4,
+      "type": "backend",
+      "label": "4 Adversary",
+      "sublabel": "launch week attack",
+      "width": 140
+    },
+    {
+      "id": "alarm",
+      "lane": "legs",
+      "col": 5,
+      "type": "backend",
+      "label": "5 Alarm",
+      "sublabel": "number + week",
+      "width": 140
+    },
+    {
+      "id": "hook",
+      "lane": "gate",
+      "col": 1,
+      "type": "messagebus",
+      "label": "Write hook",
+      "sublabel": "Claude Code PostToolUse",
+      "width": 150
+    },
+    {
+      "id": "lint",
+      "lane": "gate",
+      "col": 2,
+      "type": "security",
+      "label": "trip_lint.py",
+      "sublabel": "exit 1 blocks next leg",
+      "tag": "no reassurance",
+      "width": 150
+    },
+    {
+      "id": "trip",
+      "lane": "files",
+      "col": 1,
+      "type": "database",
+      "label": "trip.md",
+      "sublabel": "~/.time-travel/trips",
+      "width": 150
+    },
+    {
+      "id": "ics",
+      "lane": "files",
+      "col": 5,
+      "type": "database",
+      "label": "alarms.ics",
+      "sublabel": "import to calendar",
+      "width": 140
+    }
+  ],
+  "edges": [
+    {
+      "id": "plan-cut",
+      "from": "plan",
+      "to": "cut"
+    },
+    {
+      "id": "cut-autopsy",
+      "from": "cut",
+      "to": "autopsy",
+      "variant": "emphasis"
+    },
+    {
+      "id": "autopsy-verdict",
+      "from": "autopsy",
+      "to": "verdict",
+      "variant": "emphasis"
+    },
+    {
+      "id": "verdict-rebuild",
+      "from": "verdict",
+      "to": "rebuild",
+      "variant": "emphasis"
+    },
+    {
+      "id": "rebuild-adversary",
+      "from": "rebuild",
+      "to": "adversary",
+      "variant": "emphasis"
+    },
+    {
+      "id": "adversary-alarm",
+      "from": "adversary",
+      "to": "alarm",
+      "variant": "emphasis"
+    },
+    {
+      "id": "alarm-reply",
+      "from": "alarm",
+      "to": "reply",
+      "variant": "emphasis"
+    },
+    {
+      "id": "autopsy-trip",
+      "from": "autopsy",
+      "to": "trip",
+      "label": "writes",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "trip-hook",
+      "from": "trip",
+      "to": "hook",
+      "variant": "dashed",
+      "role": "async"
+    },
+    {
+      "id": "hook-lint",
+      "from": "hook",
+      "to": "lint",
+      "label": "every write",
+      "variant": "security"
+    },
+    {
+      "id": "lint-rebuild",
+      "from": "lint",
+      "to": "rebuild",
+      "label": "exit 0, next leg",
+      "variant": "security",
+      "role": "return"
+    },
+    {
+      "id": "alarm-ics",
+      "from": "alarm",
+      "to": "ics",
+      "label": "alarms_ics.py",
+      "variant": "dashed",
+      "role": "branch"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "The gate refuses",
+      "items": [
+        "a cause not traced to D1..Dn or an explicit cut",
+        "a skipped month, a cause left open, an alarm without a number or week",
+        "any reassurance, in English or Portuguese"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Measured on a real run",
+      "items": [
+        "205 s, 18 turns, 6 gate calls",
+        "6 of 6 passed on the first try",
+        "7 alarms exported to .ics"
+      ]
+    }
+  ]
+}

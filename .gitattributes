@@ -1,0 +1,4 @@
+*.ics -text
+*.gif binary
+*.mp4 binary
+*.png binary

@@ -1,0 +1,125 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//time-travel//premortem alarms//EN
+CALSCALE:GREGORIAN
+X-WR-CALNAME:Premortem alarms: 2026-10-25-nudge-launch
+BEGIN:VEVENT
+UID:0c19b0e20119433a@time-travel
+DTSTAMP:20261025T211656Z
+DTSTART;VALUE=DATE:20261219
+DTEND;VALUE=DATE:20261220
+SUMMARY:Alarm\, cause 1: One launch spike\, then silence
+DESCRIPTION:Signal: Waitlist confirmed emails in the landing-page email too
+ l\, counted every Friday\nRings at: Fewer than 75 by week 8 (half of the 1
+ 50 the checklist requires by week 12)\nCheck: Week 8\nTrip: 2026-10-25-nud
+ ge-launch
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:PT9H
+DESCRIPTION:Alarm\, cause 1: One launch spike\, then silence
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:f2e399298c74aff7@time-travel
+DTSTAMP:20261025T211656Z
+DTSTART;VALUE=DATE:20261212
+DTEND;VALUE=DATE:20261213
+SUMMARY:Alarm\, cause 2: Two integrations ate the six weeks
+DESCRIPTION:Signal: A real overdue invoice from a real customer account syn
+ ced end to end into Nudge and shown with the right amount and due date\nRi
+ ngs at: 0 real invoices synced by the end of week 7 (3 weeks into the buil
+ d)\nCheck: Week 7\nTrip: 2026-10-25-nudge-launch
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:PT9H
+DESCRIPTION:Alarm\, cause 2: Two integrations ate the six weeks
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:3fd0f3a141af8fdc@time-travel
+DTSTAMP:20261025T211656Z
+DTSTART;VALUE=DATE:20261219
+DTEND;VALUE=DATE:20261220
+SUMMARY:Alarm\, cause 3: Late invoices are episodic\, the subscription is m
+ onthly
+DESCRIPTION:Signal: Concierge log: overdue invoices per paying concierge cu
+ stomer over their 30 days\nRings at: Average under 1.5 late invoices per c
+ ustomer per 30 days\nCheck: Week 8\nTrip: 2026-10-25-nudge-launch
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:PT9H
+DESCRIPTION:Alarm\, cause 3: Late invoices are episodic\, the subscription 
+ is monthly
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:9e421735e995fdc6@time-travel
+DTSTAMP:20261025T211656Z
+DTSTART;VALUE=DATE:20261121
+DTEND;VALUE=DATE:20261122
+SUMMARY:Alarm\, cause 4: The free reminder already inside Stripe and QuickB
+ ooks
+DESCRIPTION:Signal: Side-by-side answers from concierge payers in the inter
+ view notes: "would keep Nudge" against "free reminder is enough"\nRings at
+ : 3 or more of the first 5 say the free reminder is enough\nCheck: Week 4\
+ nTrip: 2026-10-25-nudge-launch
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:PT9H
+DESCRIPTION:Alarm\, cause 4: The free reminder already inside Stripe and Qu
+ ickBooks
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:369351d1844ab27f@time-travel
+DTSTAMP:20261025T211656Z
+DTSTART;VALUE=DATE:20270213
+DTEND;VALUE=DATE:20270214
+SUMMARY:Alarm\, cause 5: $2\,000 of ads bought 20 customers
+DESCRIPTION:Signal: Ad spend in the ad dashboard divided by new paying cust
+ omers in Stripe\, per $250 tranche\nRings at: Cost per paying customer abo
+ ve $90 after any $250 tranche\nCheck: Week 16\nTrip: 2026-10-25-nudge-laun
+ ch
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:PT9H
+DESCRIPTION:Alarm\, cause 5: $2\,000 of ads bought 20 customers
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:525972785a37f816@time-travel
+DTSTAMP:20261025T211656Z
+DTSTART;VALUE=DATE:20270130
+DTEND;VALUE=DATE:20270131
+SUMMARY:Alarm\, cause 6: The money and the founder ran out before the produ
+ ct found its market
+DESCRIPTION:Signal: Bank statement for the $5\,000 plus Stripe MRR\, checke
+ d side by side\nRings at: More than $2\,500 spent while MRR is under $300\
+ nCheck: Week 14\nTrip: 2026-10-25-nudge-launch
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:PT9H
+DESCRIPTION:Alarm\, cause 6: The money and the founder ran out before the p
+ roduct found its market
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:4f82ab770def4e48@time-travel
+DTSTAMP:20261025T211656Z
+DTSTART;VALUE=DATE:20270130
+DTEND;VALUE=DATE:20270131
+SUMMARY:Alarm\, cause 7: A final notice hurt a client relationship\, and r/
+ freelance heard about it
+DESCRIPTION:Signal: Replies to Nudge emails containing "paid"\, "dispute" o
+ r "stop"\, and spam-complaint rate in the email sending provider\nRings at
+ : Any 1 reminder sent after a client replied "paid" or "dispute"\, or a sp
+ am-complaint rate above 0.3%\nCheck: Week 14\nTrip: 2026-10-25-nudge-launc
+ h
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER:PT9H
+DESCRIPTION:Alarm\, cause 7: A final notice hurt a client relationship\, an
+ d r/freelance heard about it
+END:VALARM
+END:VEVENT
+END:VCALENDAR

@@ -39,32 +39,32 @@ jobs:
       # still releases a complete trip and still refuses the moves that make a
       # premortem worthless.
       - name: gate releases the example trip
-        run: python3 sensors/trip_lint.py --artifact examples/invoice-nudge/trip.md --phase all
+        run: python3 sensors/trip_lint.py --artifact sensors/fixtures/trip.md --phase all
 
       - name: gate refuses reassurance
         run: |
-          sed 's/- Hidden assumption: that/- Hidden assumption: great plan overall, but/' examples/invoice-nudge/trip.md > "$RUNNER_TEMP/t1.md"
+          sed 's/- Hidden assumption: that/- Hidden assumption: great plan overall, but/' sensors/fixtures/trip.md > "$RUNNER_TEMP/t1.md"
           if python3 sensors/trip_lint.py --artifact "$RUNNER_TEMP/t1.md"; then
             echo "the gate released a reassuring trip"; exit 1
           fi
 
       - name: gate refuses a cause traced to nothing
         run: |
-          sed 's/- Traces to: D7/- Traces to: the market/' examples/invoice-nudge/trip.md > "$RUNNER_TEMP/t2.md"
+          sed 's/- Traces to: D7/- Traces to: the market/' sensors/fixtures/trip.md > "$RUNNER_TEMP/t2.md"
           if python3 sensors/trip_lint.py --artifact "$RUNNER_TEMP/t2.md" --phase autopsy; then
             echo "the gate released generic advice"; exit 1
           fi
 
       - name: gate refuses an alarm that cannot be measured
         run: |
-          sed 's/| under 20% of launch week trials |/| much lower than launch |/' examples/invoice-nudge/trip.md > "$RUNNER_TEMP/t3.md"
+          sed 's/| under 20% of launch week trials |/| much lower than launch |/' sensors/fixtures/trip.md > "$RUNNER_TEMP/t3.md"
           if python3 sensors/trip_lint.py --artifact "$RUNNER_TEMP/t3.md" --phase alarm; then
             echo "the gate released an alarm with no number"; exit 1
           fi
 
       - name: hook gates trip files and ignores everything else
         run: |
-          printf '{"tool_input":{"file_path":"%s"}}' "$PWD/examples/invoice-nudge/trip.md" | bash hooks/post-write-trip.sh
+          printf '{"tool_input":{"file_path":"%s"}}' "$PWD/sensors/fixtures/trip.md" | bash hooks/post-write-trip.sh
           printf '{"tool_input":{"file_path":"%s"}}' "$RUNNER_TEMP/t2.md" | bash hooks/post-write-trip.sh
           cp "$RUNNER_TEMP/t2.md" "$RUNNER_TEMP/trip.md"
           set +e
@@ -75,7 +75,7 @@ jobs:
 
       - name: calendar export runs
         run: |
-          python3 scripts/alarms_ics.py --artifact examples/invoice-nudge/trip.md --out "$RUNNER_TEMP/alarms.ics"
+          python3 scripts/alarms_ics.py --artifact sensors/fixtures/trip.md --out "$RUNNER_TEMP/alarms.ics"
           test "$(grep -c BEGIN:VEVENT "$RUNNER_TEMP/alarms.ics")" -eq 7
 
       - name: shell scripts parse

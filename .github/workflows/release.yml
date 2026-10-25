@@ -55,7 +55,7 @@ jobs:
           python3 sensors/repo_lint.py
           python3 sensors/test_sensors.py
           python3 scripts/test_alarms_ics.py
-          python3 sensors/trip_lint.py --artifact examples/invoice-nudge/trip.md --phase all
+          python3 sensors/trip_lint.py --artifact sensors/fixtures/trip.md --phase all
 
       - name: release notes from the changelog
         if: steps.tag.outputs.exists == 'false'

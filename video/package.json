@@ -1,0 +1,20 @@
+{
+  "name": "time-travel-video",
+  "private": true,
+  "description": "The README demo of time-travel, built with Remotion from a real recorded run.",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render Demo out/demo.mp4",
+    "gif": "remotion render Demo out/demo.gif --codec=gif --every-nth-frame=2 --scale=0.75"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.534",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.534"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.12",
+    "typescript": "5.6.3"
+  }
+}
