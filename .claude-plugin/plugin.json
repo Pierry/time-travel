@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin.json",
   "name": "time-travel",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Premortem agent. Travels six months ahead to the day your plan failed and writes the autopsy: seven causes of death traced to your own plan, the verdict, the plan rebuilt with a quit-if checklist, the rival's attack, and one measurable alarm per cause with the week to check it. A deterministic gate between legs, and no reassurance allowed.",
   "author": {
     "name": "Pierry Borges"

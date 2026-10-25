@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/Pierry/time-travel/actions/workflows/ci.yml"><img src="https://github.com/Pierry/time-travel/actions/workflows/ci.yml/badge.svg" alt="ci"></a>
-  <a href="https://github.com/Pierry/time-travel/releases"><img src="https://img.shields.io/badge/release-v0.1.2-FF5A1F" alt="release"></a>
+  <a href="https://github.com/Pierry/time-travel/releases"><img src="https://img.shields.io/badge/release-v0.1.3-FF5A1F" alt="release"></a>
   <img src="https://img.shields.io/badge/Claude%20Code-plugin-D97757" alt="Claude Code plugin">
   <img src="https://img.shields.io/badge/Codex-plugin-000000" alt="Codex plugin">
   <img src="https://img.shields.io/badge/tests-79-1F883D" alt="tests">
@@ -18,9 +18,9 @@
 It never tells you the plan is great. A deterministic gate refuses the trip if it tries.
 
 <p align="center">
-  <img src="docs/demo.gif" alt="A real run: one command, six gated legs, seven causes of death, the verdict and the alarms" width="900">
+  <img src="docs/demo.gif" alt="A real interactive Claude Code session running /time-travel:premortem on a plan, recorded in the terminal" width="900">
   <br>
-  <sub>Every number in this clip comes from the <a href="#a-real-run">recorded run below</a>. Full quality: <a href="docs/demo.mp4">docs/demo.mp4</a>. Source: <a href="video/">video/</a>, built with Remotion.</sub>
+  <sub>A real Claude Code session, recorded in the terminal with VHS; only the shell setup line is hidden. The four waits where only the thinking spinner moves are cut and labelled on screen; nothing is sped up. Whole session in real time (178 s): <a href="docs/demo-full.mp4">docs/demo-full.mp4</a>. How it was recorded: <a href="examples/invoice-nudge/recorded-session/run.md">recorded-session/run.md</a>.</sub>
 </p>
 
 # Why
@@ -92,7 +92,7 @@ A reply in the conversation, one file at `~/.time-travel/trips/<date>-<slug>/tri
 
 # A real run
 
-One command on a four line plan, recorded end to end on 2026-10-25 and committed as is in [`examples/invoice-nudge/`](examples/invoice-nudge/). How it was recorded, and the two local paths that were blanked: [`run.md`](examples/invoice-nudge/run.md).
+The clip above is one run; [`recorded-session/`](examples/invoice-nudge/recorded-session/) has its trip and reply. Below is a second, headless run of the same plan: one command on a four line plan, recorded end to end on 2026-10-25 and committed as is in [`examples/invoice-nudge/`](examples/invoice-nudge/). How it was recorded, and the two local paths that were blanked: [`run.md`](examples/invoice-nudge/run.md).
 
 | | |
 |---|---|
@@ -228,7 +228,7 @@ scripts/               the calendar export and its tests
 hooks/                 the Claude Code hook that gates every trip write
 examples/              a recorded real run: plan, reply, trip and alarms.ics
 docs/                  banner, logo, demo clip and the Archify pipeline diagram
-video/                 the Remotion source of the demo clip (npm install && npm run render)
+video/                 terminal/demo.tape (the VHS recording) and the Remotion source of docs/summary.mp4
 ```
 
 # Configuration

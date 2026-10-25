@@ -4,6 +4,12 @@ Format [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versions [SemVe
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-10-25
+
+- The README clip is now a real interactive Claude Code session recorded in the terminal with VHS (`video/terminal/demo.tape`), not an animation. Waits where only the spinner moves are cut and labelled on screen; the full real time session is `docs/demo-full.mp4`.
+- `examples/invoice-nudge/recorded-session/`: the trip, the reply and the run notes of that session (7 gate results, 7 ok).
+- The Remotion animation stays as `docs/summary.mp4`.
+
 ## [0.1.2] - 2026-10-25
 
 - `examples/invoice-nudge/` is now a real recorded run (plan, verbatim reply, trip, `alarms.ics`, and `run.md` with model, time, turns and the gate log). The hand written trip moved to `sensors/fixtures/trip.md`, where it stays the test fixture.
