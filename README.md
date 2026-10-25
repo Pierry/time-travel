@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/Pierry/time-travel/actions/workflows/ci.yml"><img src="https://github.com/Pierry/time-travel/actions/workflows/ci.yml/badge.svg" alt="ci"></a>
-  <a href="https://github.com/Pierry/time-travel/releases"><img src="https://img.shields.io/badge/release-v0.1.1-FF5A1F" alt="release"></a>
+  <a href="https://github.com/Pierry/time-travel/releases"><img src="https://img.shields.io/badge/release-v0.1.2-FF5A1F" alt="release"></a>
   <img src="https://img.shields.io/badge/Claude%20Code-plugin-D97757" alt="Claude Code plugin">
   <img src="https://img.shields.io/badge/Codex-plugin-000000" alt="Codex plugin">
   <img src="https://img.shields.io/badge/tests-79-1F883D" alt="tests">
@@ -16,6 +16,12 @@
 **time-travel** is a premortem agent for [Claude Code](https://claude.com/claude-code) and [Codex](https://developers.openai.com/codex). You hand it a plan. It travels six months ahead, finds the plan dead, and comes back with the autopsy: what killed it, month by month, traced to the exact line of your plan that let it happen. Then it rebuilds the plan, plays your rival, and sets one measurable alarm per cause of death so you see it coming.
 
 It never tells you the plan is great. A deterministic gate refuses the trip if it tries.
+
+<p align="center">
+  <img src="docs/demo.gif" alt="A real run: one command, six gated legs, seven causes of death, the verdict and the alarms" width="900">
+  <br>
+  <sub>Every number in this clip comes from the <a href="#a-real-run">recorded run below</a>. Full quality: <a href="docs/demo.mp4">docs/demo.mp4</a>. Source: <a href="video/">video/</a>, built with Remotion.</sub>
+</p>
 
 # Why
 
@@ -82,41 +88,93 @@ If the plan has no goal, timeline, budget or definition of success, it asks for 
 
 ## What comes out
 
-A reply in the conversation and one file, `~/.time-travel/trips/<date>-<slug>/trip.md`. A full worked trip lives in [`examples/invoice-nudge/trip.md`](examples/invoice-nudge/trip.md), made from [this plan](examples/invoice-nudge/plan.md). An excerpt:
+A reply in the conversation, one file at `~/.time-travel/trips/<date>-<slug>/trip.md`, and on request an `.ics` with the alarms. The next section is a real run, not a mock up.
+
+# A real run
+
+One command on a four line plan, recorded end to end on 2026-10-25 and committed as is in [`examples/invoice-nudge/`](examples/invoice-nudge/). How it was recorded, and the two local paths that were blanked: [`run.md`](examples/invoice-nudge/run.md).
+
+| | |
+|---|---|
+| Input | [`plan.md`](examples/invoice-nudge/plan.md), a SaaS that chases late invoices: $29/month, solo founder, $5,000, MVP in 6 weeks, 200 customers in 6 months |
+| Command | `/time-travel:premortem plan.md` |
+| Model | `claude-opus-5-5` through Claude Code |
+| Time | 205 s, 18 turns |
+| Gate | 6 calls, 6 `trip_lint: ok` on the first try, no repair |
+| Output | [`reply.md`](examples/invoice-nudge/reply.md), [`trip.md`](examples/invoice-nudge/trip.md) (208 lines), [`alarms.ics`](examples/invoice-nudge/alarms.ics) (7 events) |
+
+## The reply, first lines verbatim
+
+> Arrival is 2027-04-25. The most likely way Nudge dies is a single launch spike with nothing after it. Product Hunt, 1,800 followers and an r/freelance post bring one week of trials in the week before Christmas, and nothing in the plan brings a second week. By April that leaves about 17 paying customers against the target of 200.
+>
+> **Fatal flaw:** yes. The distribution as written can't reach the goal.
+> - 200 paying customers at a typical 10–15% trial-to-paid rate means roughly 1,300–2,000 trials.
+> - At 2–4% of visitors starting a trial, that means 30,000–100,000 visitors.
+> - Your three channels plus $2,000 of ads deliver perhaps 5,000–10,000. These are typical ranges for this kind of launch, not measurements, but the goal is off by a factor of five to ten.
+
+Note what it found that the plan never says: launch week 8 falls on 2026-12-20, the week before Christmas.
+
+## Leg 1, one of the seven causes, from `trip.md`
+
+Shortened here: months 1, 4 and 5 and the tail of month 3 are cut; the file has all six.
 
 ```markdown
-### Cause 2: Nobody trusts a robot to email their client about money
+### Cause 1: One launch spike, then silence
 
-- Likelihood: 55%
-- Killed by: freelancers read the first AI draft and switch auto-send off, because one
-  wrong tone costs them a client worth far more than $29
-- Traces to: D7
-- Premise: freelancers hate chasing invoices so much they will delegate the relationship
-- First warning sign: under 30% of trials leave auto-send on after the first draft
+- Likelihood: 60%
+- Killed by: Product Hunt, 1,800 Twitter followers and an r/freelance post produced a single
+  week of traffic in the week before Christmas, and nothing in the plan generated a second week.
+- Traces to: D8, D9, D11
+- Premise: "If the product is good, a Product Hunt launch and my followers will get the first
+  wave, and word of mouth does the rest."
+- First warning sign: in launch week, under 1,500 site visitors and under 40 trial signups;
+  the r/freelance post removed within hours as self-promotion.
+
+| Month | What happened |
+|---|---|
+| 2 | Launch on 2026-12-20, the week before Christmas. Product Hunt gives about 1,100 visitors
+      and 35 trials; Twitter drives 200 clicks; the r/freelance post is removed by the moderators. |
+| 3 | January. Daily signups fall from 8 to under 1 by mid-month. 6 of the 35 trials convert. |
+| 6 | April 2027. 17 paying customers against the 200 the plan needs. The plan is declared dead. |
 ```
+
+The other six: two integrations ate the six weeks (50%), late invoices are episodic while the subscription is monthly (45%), the free reminder already inside Stripe and QuickBooks (40%), $2,000 of ads bought 20 customers (35%), money and founder ran out first (30%), a final notice hurt a client and r/freelance heard (20%).
+
+## Leg 2, the verdict
 
 ```markdown
-## 2. Verdict
-
-- Most likely: Cause 1, the launch spike that never became a pipeline
-- Most dangerous: Cause 2, nobody trusts a robot to email their client about money
-- Fatal flaw: yes: auto-sending AI emails to the client is both the differentiator and
-  the reason to churn; the plan grows a product whose main feature users disable
+- Most likely: Cause 1, one launch spike, then silence
+- Most dangerous: Cause 7, a final notice hurt a client relationship, and r/freelance heard about it
+- Hidden assumption: that late invoices are a frequent, monthly pain freelancers will pay $29 a
+  month to hand to a robot that speaks to their clients. Causes 1, 3, 4 and 7 all rest on it.
 ```
 
-```markdown
-| Confirm                                                         | Quit if                                   |
-|-----------------------------------------------------------------|-------------------------------------------|
-| Show 15 freelancers an AI draft for their own late invoice      | fewer than 5 would send it with no edit   |
-| Pre-sell 3 months for $60 to the waitlist before building       | fewer than 10 people pay                  |
-```
+## Leg 3, the checklist before writing any code
 
-```markdown
-| Cause   | Signal                                    | Threshold              | Check week |
-|---------|-------------------------------------------|------------------------|------------|
-| Cause 2 | share of drafts sent with no edit         | under 30% of drafts    | Week 9     |
-| Cause 5 | QuickBooks production keys approved       | not approved by week 4 | Week 4     |
-```
+| Confirm | Quit if |
+|---|---|
+| By week 3: interview 20 freelancers about how many invoices went late in the last 90 days | Fewer than 6 of 20 had 2 or more late invoices |
+| By week 4: sell a hand-run month of invoice chasing at $29, paid up front | Fewer than 5 people pay |
+| By week 4: show each payer the free reminders in their Stripe or QuickBooks next to Nudge | 3 or more of the first 5 say the free one is enough |
+| By week 12, before the public launch: count waitlist emails | Fewer than 150 |
+| During the hand-run month: count how often payers approve the escalation emails | Fewer than half get approved, or 2 of 5 payers refuse any email to their client |
+
+The rebuilt plan also moves the launch to 2027-01-17, cuts the MVP to one integration, and resets the six month goal to 60 paying customers with 200 as the 12 month goal.
+
+## Leg 4, the adversary
+
+> Blind side: I would not attack the product; I would attack the funnel. The free escalation templates Nudge gives away as its lead magnet are the asset that ranks in search after launch. I republish an expanded version within two weeks.
+
+## Leg 5, the alarms
+
+| Cause | Signal | Threshold | Check week |
+|---|---|---|---|
+| Cause 4 | concierge payers: "would keep Nudge" against "free reminder is enough" | 3 or more of the first 5 say the free reminder is enough | Week 4 |
+| Cause 2 | a real overdue invoice synced end to end into Nudge | 0 real invoices synced by the end of week 7 | Week 7 |
+| Cause 1 | waitlist confirmed emails, counted every Friday | fewer than 75 by week 8 | Week 8 |
+| Cause 6 | bank statement against Stripe MRR | more than $2,500 spent while MRR is under $300 | Week 14 |
+
+Plus three more in the file. `alarms.ics` puts all seven on a calendar.
 
 ## Put the alarms on your calendar
 
@@ -144,13 +202,11 @@ Every rule has a test that must catch the broken case and one that must let the 
 
 # How it works
 
-```mermaid
-flowchart LR
-    P[your plan] --> L0[0 plan<br>cut into details D1..Dn]
-    L0 --> L1[1 autopsy] --> L2[2 verdict] --> L3[3 rebuild] --> L4[4 adversary] --> L5[5 alarm]
-    L5 --> R[reply + trip.md + alarms.ics]
-    G{{trip_lint.py}} -. gates .-> L0 & L1 & L2 & L3 & L4 & L5
-```
+<p align="center">
+  <a href="docs/diagrams/pipeline.html"><img src="docs/diagrams/pipeline.png" alt="Plan in, six legs in a row, the gate after every write, trip.md and alarms.ics out" width="900"></a>
+  <br>
+  <sub>Built with Archify from <a href="docs/diagrams/pipeline.workflow.json">pipeline.workflow.json</a>. Open <a href="docs/diagrams/pipeline.html">pipeline.html</a> locally for the interactive version (pan, zoom, trace).</sub>
+</p>
 
 | Piece | Claude Code | Codex | Other agents |
 |---|---|---|---|
@@ -167,10 +223,12 @@ flowchart LR
 agents/                the persona, limits and closing reply
 skills/                premortem (entry point) and one skill per leg
 templates/trip.md      the artifact every trip fills
-sensors/               the gate, the repository lint and their tests
+sensors/               the gate, the repository lint, their tests and the test fixture
 scripts/               the calendar export and its tests
 hooks/                 the Claude Code hook that gates every trip write
-examples/              a full plan and its trip, also the test fixture
+examples/              a recorded real run: plan, reply, trip and alarms.ics
+docs/                  banner, logo, demo clip and the Archify pipeline diagram
+video/                 the Remotion source of the demo clip (npm install && npm run render)
 ```
 
 # Configuration

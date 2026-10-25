@@ -122,17 +122,22 @@ def check() -> list[str]:
                         errors.append(f"hooks.json runs {script}, which does not exist")
 
     # The example the README shows passes the gate it advertises.
-    example = (ROOT / "examples/invoice-nudge/trip.md").read_text(encoding="utf-8")
+    example = (ROOT / "sensors/fixtures/trip.md").read_text(encoding="utf-8")
     hard = [f for f in t.run(example, "all") if f.severity == "hard"]
     if hard:
-        errors.append(f"examples/invoice-nudge/trip.md fails its own gate: {hard[0]}")
+        errors.append(f"sensors/fixtures/trip.md fails its own gate: {hard[0]}")
 
-    # House style: no en or em dash in prose.
+    # House style: no en or em dash in prose. Recorded model output is evidence
+    # and stays verbatim: a reply.md under examples/, and blockquotes that quote it.
     for rel in PROSE:
         base = ROOT / rel
         files = [base] if base.is_file() else sorted(base.rglob("*.md"))
         for f in files:
+            if f.name == "reply.md" and "examples" in f.parts:
+                continue
             for i, line in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):
+                if line.startswith(">"):
+                    continue
                 if DASHES.search(line):
                     errors.append(f"{f.relative_to(ROOT)}:{i} has an en or em dash; use a comma, a colon or two sentences")
 

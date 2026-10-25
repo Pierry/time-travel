@@ -4,6 +4,14 @@ Format [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versions [SemVe
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-10-25
+
+- `examples/invoice-nudge/` is now a real recorded run (plan, verbatim reply, trip, `alarms.ics`, and `run.md` with model, time, turns and the gate log). The hand written trip moved to `sensors/fixtures/trip.md`, where it stays the test fixture.
+- README: a "A real run" section built from that recording, the demo clip at the top, and the pipeline drawn with Archify in place of the Mermaid chart.
+- New flat banner and logo on Cloud Dancer with a script wordmark.
+- `video/`: the Remotion source of the demo clip; every value in it is copied from the recorded run.
+- `repo_lint` leaves recorded model output verbatim: `examples/*/reply.md` and README blockquotes are exempt from the dash rule.
+
 ## [0.1.1] - 2026-10-25
 
 - Python 3.10 is the supported minimum. GitHub's Ubuntu 26.04 runners no longer ship 3.9, so 3.9 could not be tested; CI now runs on 3.10 and 3.14 without fail fast.

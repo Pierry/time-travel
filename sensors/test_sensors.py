@@ -2,7 +2,7 @@
 """
 Every rule of the gate, both ways.
 
-The clean trip in `examples/invoice-nudge/trip.md` must pass. Each case below
+The clean trip in `sensors/fixtures/trip.md` must pass. Each case below
 breaks it in one place and names the finding that must appear. A gate that
 blocks a clean trip is as broken as one that releases a bad one, so the clean
 trip is checked on every leg too.
@@ -24,7 +24,7 @@ sys.path.insert(0, str(ROOT / "sensors"))
 
 import trip_lint as t  # noqa: E402
 
-CLEAN = (ROOT / "examples" / "invoice-nudge" / "trip.md").read_text(encoding="utf-8")
+CLEAN = (ROOT / "sensors" / "fixtures" / "trip.md").read_text(encoding="utf-8")
 TEMPLATE = (ROOT / "templates" / "trip.md").read_text(encoding="utf-8")
 
 

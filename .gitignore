@@ -11,3 +11,4 @@ out/
 .cursor/
 .vscode/
 opencode.jsonc
+!examples/**/alarms.ics

@@ -13,7 +13,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 import alarms_ics as a  # noqa: E402
 
-CLEAN = (ROOT / "examples" / "invoice-nudge" / "trip.md").read_text(encoding="utf-8")
+CLEAN = (ROOT / "sensors" / "fixtures" / "trip.md").read_text(encoding="utf-8")
 NOW = datetime(2026, 10, 25, 12, 0, tzinfo=timezone.utc)
 
 
