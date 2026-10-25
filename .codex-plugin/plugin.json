@@ -1,6 +1,6 @@
 {
   "name": "time-travel",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Premortem agent. Writes the autopsy of your plan six months before it dies: seven traced causes, the verdict, the rebuild, the rival's attack and one measurable alarm per cause.",
   "author": {
     "name": "Pierry Borges"
