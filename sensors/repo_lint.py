@@ -12,6 +12,7 @@ before it reaches main.
 
 from __future__ import annotations
 
+import importlib.util
 import json
 import re
 import sys
@@ -46,8 +47,10 @@ def frontmatter(path: Path) -> dict[str, str]:
 def count_tests() -> int:
     total = 0
     for rel in TEST_FILES:
-        suite = unittest.defaultTestLoader.discover(str(ROOT / Path(rel).parent), pattern=Path(rel).name)
-        total += suite.countTestCases()
+        spec = importlib.util.spec_from_file_location(Path(rel).stem, ROOT / rel)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        total += unittest.defaultTestLoader.loadTestsFromModule(module).countTestCases()
     return total
 
 
